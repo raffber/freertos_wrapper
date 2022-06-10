@@ -6,7 +6,15 @@ RUN apt-get update --yes && apt-get --yes install pkg-config && \
     dpkg -i /root/jlink.deb && \
     rm /root/jlink.deb
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && \
+
+RUN apt-get update --yes && apt-get --yes install gcc-arm-none-eabi gdb-multiarch gcc-multilib g++-multilib lldb
+
+USER vscode
+SHELL ["/bin/bash", "-c"]
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+RUN source $HOME/.cargo/env && \
     rustup install 1.61.0 && \
     rustup component add llvm-tools-preview && \
     rustup component add clippy && \
@@ -14,4 +22,3 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && \
     cargo install cargo-binutils && \
     cargo install cargo-watch 
 
-RUN apt-get update --yes && apt-get --yes install gcc-arm-none-eabi gdb-multiarch gcc-multilib g++-multilib lldb
