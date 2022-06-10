@@ -1,0 +1,47 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.195.0/containers/cpp
+{
+	"name": "C++",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		"--security-opt",
+		"seccomp=unconfined"
+	],
+	// Set *default* container specific settings.json values on container create.
+	"settings": {},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"marus25.cortex-debug",
+		"vadimcn.vscode-lldb",
+		"pascalsenn.keyboard-quickfix",
+		"rioj7.command-variable",
+		"matklad.rust-analyzer",
+		"tamasfe.even-better-toml",
+		"serayuzgur.crates",
+		"usernamehw.errorlens"
+	],
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": { 
+				"lldb.executable": "/usr/bin/lldb",
+				// VS Code don't watch files under ./target
+				"files.watcherExclude": {
+					"**/target/**": true
+				},
+				"rust-analyzer.checkOnSave.command": "clippy"
+			}
+		}
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "gcc -v",
+	// Comment out this line to run as root instead.
+	"remoteUser": "vscode",
+	"postCreateCommand": "sh -c .devcontainer/export_host_ip.sh"
+}
