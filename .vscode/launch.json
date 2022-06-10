@@ -20,7 +20,8 @@
             "program": "${cargo:program}",
             "args": [],
             "env": {
-                "CARGO_MANIFEST_DIR": "${workspaceFolder}/freertos_build"
+                "CARGO_MANIFEST_DIR": "${workspaceFolder}/freertos_build",
+                "OPT_LEVEL": "0",
             }
         },
     ]
