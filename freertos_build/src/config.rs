@@ -29,7 +29,9 @@ impl Config {
 
     pub fn render(&self) -> Result<String> {
         let mut handlebars = Handlebars::new();
-        handlebars.register_template_string("config", TEMPLATE);
+        handlebars
+            .register_template_string("config", TEMPLATE)
+            .unwrap();
         Ok(handlebars.render("config", self)?)
     }
 }

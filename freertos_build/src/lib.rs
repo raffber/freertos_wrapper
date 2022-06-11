@@ -4,7 +4,7 @@ use std::{
     env,
     path::{Path, PathBuf},
 };
-mod config;
+pub mod config;
 pub mod ports;
 
 pub struct Port {
@@ -78,7 +78,7 @@ fn get_source_paths(port: &Port) -> Result<BuildFiles> {
     Ok(ret)
 }
 
-fn build_freertos(port: &Port, config: &Config, target_dir: &Path) -> Result<()> {
+pub fn build_freertos(port: &Port, config: &Config, target_dir: &Path) -> Result<()> {
     let sources = get_source_paths(port)?;
 
     let mut target_dir = PathBuf::from(target_dir);
@@ -89,14 +89,11 @@ fn build_freertos(port: &Port, config: &Config, target_dir: &Path) -> Result<()>
     std::fs::write(&config_file, config.render()?)?;
 
     let mut build = cc::Build::new();
-    println!("Sources: {:?}", sources.sources);
-    println!("Includes: {:?}", sources.includes);
     build.files(&sources.sources);
     build.includes(&sources.includes);
     build.include(&target_dir);
     build.target(&port.target_triplet);
     build.out_dir(target_dir);
-    println!("HIA!!!!");
     build.compile("freertos");
 
     Ok(())
@@ -104,7 +101,7 @@ fn build_freertos(port: &Port, config: &Config, target_dir: &Path) -> Result<()>
 
 #[cfg(test)]
 mod tests {
-    use crate::{config::ConfigBuilder, ports::cortex_m4f};
+    use crate::ports::cortex_m4f;
 
     use super::*;
 

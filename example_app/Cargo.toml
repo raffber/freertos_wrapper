@@ -6,3 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+freertos = {path = "../freertos"}
+cortex-m-rt = "0.7"
+
+[build-dependencies]
+freertos_build = {path = "../freertos_build"}
