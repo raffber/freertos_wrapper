@@ -10,6 +10,18 @@
 			],
 			"group": {
 				"kind": "build",
+				"isDefault": false
+			},
+		},
+		{
+			"label": "build example_app",
+			"type": "shell",
+			"command": "cd example_app && cargo build",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": {
+				"kind": "build",
 				"isDefault": true
 			},
 		}
